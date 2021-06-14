@@ -1,0 +1,14 @@
+<nav>
+    <ul>
+        <!--
+        static // define the path of content static
+        filename // path + file name
+        -->
+        <li>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+        </li>
+        <li>
+            <a href="{{url_for('index')}}" style="background: black;color: white">Ir a inicio</a>
+        </li>
+    </ul>
+</nav>

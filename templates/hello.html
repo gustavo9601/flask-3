@@ -1,0 +1,36 @@
+<!--Heredando atributos de template html-->
+{% extends 'template.html' %}
+
+<!--
+Importando archivo de macro component
+// Permite pasar parametros a modo de funcion
+-->
+
+{% import 'component.html' as component %}
+
+<!--Pass params to blocks defined in the template.html-->
+<!--With super() heredy all content and dont replace them-->
+{% block description %}
+{{ super() }}
+Descripcion de Hello
+{% endblock %}
+{% block title %}Page Hello Title{% endblock %}
+
+{% block content %}
+<h1>Message from main.py => {{greeting}}</h1>
+<hr>
+{% if greeting  %}
+    <p>Si se envio el greeting</p>
+    <a href="{{ url_for('hello_world') }}">Go to the hello world</a>
+{% else %}
+    <p>No se envio el greeting</p>
+{%  endif %}
+
+<hr>
+<p>Numeros</p>
+<ul>
+    {% for value in values  %}
+        {{component.render_component_li(value)}}
+    {% endfor %}
+</ul>
+{% endblock %}

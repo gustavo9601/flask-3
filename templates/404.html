@@ -1,0 +1,13 @@
+<!--Heredando atributos de template html-->
+{% extends 'template.html' %}
+
+{% block title %}
+Error 404
+{% endblock %}
+
+
+{% block content %}
+<h1>Error 404, no existe :(</h1>
+<p>{{error}}</p>
+{% endblock %}
+

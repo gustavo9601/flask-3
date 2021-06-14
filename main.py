@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, redirect
+from flask import Flask, request, make_response, redirect, render_template
 from common import config
 
 """
@@ -11,17 +11,40 @@ flask run
 settings = config()['settings']
 
 # Init app
-app = Flask(settings['app_name'])
+
+"""
+template_folder // define the templaste html folder
+static_folder // define the media content
+"""
+app = Flask(
+    settings['app_name'],
+    template_folder='./templates',
+    static_folder='./static'
+)
+
+
+
+@app.route('/hello-template')
+def hello_template():
+    context = {
+        'greeting': 'Hello template',
+        'values': [1, 2, 3, 4, 56]
+    }
+    # Pass params to template
+    # **context // devuelve todos los valores del diccionario como variable independientes
+    return render_template('hello.html', **context)
 
 
 @app.route('/hello-world')
 def hello_world():
     return "Hi I'm the besst developer IA and ML in the World"
 
+
 @app.route('/ip_user')
 def get_ip_form_cookie():
-    user_ip = request.cookies.get('user_ip') if  request.cookies.get('user_ip') else get_ip_client()
+    user_ip = request.cookies.get('user_ip') if request.cookies.get('user_ip') else get_ip_client()
     return f"Your IP is {user_ip}"
+
 
 @app.route('/')
 def index():
@@ -37,3 +60,14 @@ def index():
 
 def get_ip_client():
     return request.remote_addr
+
+"""
+Handling errors 
+"""
+@app.errorhandler(404)
+def error_404(error):
+    return render_template('404.html', error=error)
+
+@app.errorhandler(500)
+def error_500(error):
+  return render_template('500.html')
