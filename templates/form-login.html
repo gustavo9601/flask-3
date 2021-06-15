@@ -1,0 +1,47 @@
+<!--Heredando atributos de template html-->
+{% extends 'template.html' %}
+
+<!--Importacion del plugin director de flask bootstrap-->
+{% import 'bootstrap/wtf.html' as wtf %}
+
+<!--
+Importando archivo de macro component
+// Permite pasar parametros a modo de funcion
+-->
+
+{% import 'component.html' as component %}
+
+<!--Pass params to blocks defined in the template.html-->
+<!--With super() heredy all content and dont replace them-->
+{% block description %}
+{{ super() }}
+Descripcion del Formulario
+{% endblock %}
+{% block title %}Page Formulario{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+       <!-- <form action="{{ url_for('form_login') }}">
+           // Renderizando el template a travez de la variable enviada
+
+            // De forma manual
+            {{ login_form.username }}
+            {{ login_form.username.label }}
+
+        </form>-->
+
+        <!--Generando automaticamente el formulario-->
+        {{ wtf.quick_form(login_form) }}
+
+        {% if username %}
+            <!-- capitalize // usando pipes como en Angular -->
+            <h1>Bienvenido usuario {{username | capitalize}}</h1>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

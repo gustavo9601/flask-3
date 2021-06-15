@@ -19,8 +19,24 @@
         {% include 'nabvar.html' %}
     {% endblock %}
 
+    <!--
+    get_flashed_messages() // devuelve un iterable con todos los mensajes flash que se generen en la app
+    -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" data-dismiss="alert" class="close">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% block content %}{% endblock %}
+
+
+
+    <!--Usando el bloque heredado de bootstrap-->
+    {% block scripts %}
+        {{super()}}
+    {% endblock %}
 {% endblock %}
 
 
-</html>
