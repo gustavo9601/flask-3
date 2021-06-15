@@ -1,12 +1,16 @@
-from flask import Flask, request, make_response, redirect, render_template
+from flask import Flask, request, make_response, redirect, render_template, session
 from common import config
+from flask_bootstrap import Bootstrap
 
 """
 execute in console
 
 export FLASK_APP=current_name_file_init.py => export || set
 export FLASK_DEBUG=1 => export || set
+export FLASK_ENV=development => export || set
 flask run
+
+echo FLASK_ENV=development // se puede imprimir el valor de la variable por consola
 """
 settings = config()['settings']
 
@@ -21,8 +25,12 @@ app = Flask(
     template_folder='./templates',
     static_folder='./static'
 )
+# .config['SECRET_KEY'] // generando el tocken de encriptacion para la sesiones en flask
 
+app.config['SECRET_KEY'] = settings['secret_key']
 
+# Init bootstrap plugin flask
+bootstrap = Bootstrap(app)
 
 @app.route('/hello-template')
 def hello_template():
@@ -54,6 +62,8 @@ def index():
     response = make_response((redirect('/hello-world')))
     # making acookir in the browser
     response.set_cookie('user_ip', user_ip)
+    # making a session encrypted
+    session['user_ip'] = user_ip
 
     return response
 

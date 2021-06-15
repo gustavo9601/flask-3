@@ -2,6 +2,7 @@ settings:
   production: False
   debug: True
   app_name: 'Mi Flask APP'
+  secret_key: 'TOKEN MUY SEGURO'
 db_connection:
   host: '127.0.0.0'
   user: 'root'
